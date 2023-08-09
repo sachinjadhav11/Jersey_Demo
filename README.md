@@ -1,2 +1,2 @@
 # Jersey_Demo
-in jersey_demo project I have perform crud operation using jersey framework and mySql database.
+in jersey_demo project I have perform crud Rest APIs using jersey framework and mySql database.
