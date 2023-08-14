@@ -1,6 +1,7 @@
 package com.Registration;
 
-public class Student {
+public class Student
+{
 	private int id;
 
 	private String name;

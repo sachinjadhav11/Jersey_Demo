@@ -9,7 +9,6 @@ import java.util.List;
 
 public class StudentRepo implements StudentRepository
 {
-
 	public StudentRepo()
 	{
 		
@@ -55,13 +54,14 @@ public class StudentRepo implements StudentRepository
 			Connection con=StudentDao.getConnection();
 			
 			PreparedStatement ps=con.prepareStatement(
-			"insert into jersey_demo.student(name, email, password, address, gender) values(?,?,?,?,?)");
+			"insert into jersey_demo.student(id, name, email, password, address, gender) values(?,?,?,?,?,?)");
 			
-			ps.setString(1, student.getName());
-			ps.setString(2, student.getEmail());
-			ps.setString(3, student.getPassword());
-			ps.setString(4, student.getAddress());
-			ps.setString(5, student.getGender());
+			ps.setInt(1, student.getId());
+			ps.setString(2, student.getName());
+			ps.setString(3, student.getEmail());
+			ps.setString(4, student.getPassword());
+			ps.setString(5, student.getAddress());
+			ps.setString(6, student.getGender());
 			
 			ps.executeUpdate();
 			
