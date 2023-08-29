@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Registration Form</title>
+<link rel="stylesheet" href="style.css">
+<style>
+h3 {
+	text-align: center;
+}
+
+.container {
+	width: 40%;
+	border: 1px solid black;
+	margin: auto;
+	padding: 25px;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h3>Registration Form</h3>
+		<table>
+			<tr>
+				<td>
+					<form onsubmit="onFormSubmit()" autocomplete="off">
+						<br>
+
+						<div>
+							<label>Name:</label> <input type="text" name="name" id="name"
+								pattern="[A-Za-z ]{3,15}" title="Name must be the letter only">
+						</div>
+						<br>
+
+						<div>
+							<label>Email:</label> <input name="email" id="email"
+								pattern="^[\w]{1,}[\w.]{0,}@[\w]{2,}([.][a-zA-Z]{2,}|[.][a-zA-Z]{2,})"
+								title="Invalid Email Address">
+						</div>
+						<br>
+
+						<div>
+							<label>Password:</label> <input type="password" name="password"
+								id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+								title="Password must has at least 8 characters that include at least 1 lowercase,
+								 uppercase and special character">
+						</div>
+						<br>
+
+						<div>
+							<label>Address:</label> <input type="text" name="address"
+								id="address" pattern="[A-Za-z ]{3,15}"
+								title="Address must be the letter only">
+						</div>
+						<br>
+
+						<div>
+							<label>Gender:</label> <input type="radio" name="gender"
+								value="Male" id="male">Male &nbsp; &nbsp; <input
+								type="radio" name="gender" value="Female" id="female">Female
+						</div>
+						<br>
+
+						<div>
+							<label>PhoneNo:</label> <input type="text" name="phoneNo"
+								id="phoneNo" pattern="[0-9]{10}"
+								title="PhoneNo must be the digit and 10 number are valid">
+						</div>
+						<br>
+
+						<div>
+							<label>DeptartmentId</label> 
+							<input type="number" name="dept_id" id="dept_id">
+						</div>
+						<br>
+
+						<div class="form-action-buttons">
+							<input type="submit" value="Submit">
+						</div>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<script src="index.js"></script>
+</body>
+
+</html>
+
+
+
+
+

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>View Student Data</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h3>Sign In Successfully</h3>
+
+	<button onclick="viewStudent()">ViewStudent</button>
+	<table>
+		<tr>
+			<td>
+				<form class="Hide-form-content" onsubmit="onFormSubmit()" autocomplete="off">
+				
+					<div>
+						<label>Name</label> <input type="text" name="name" id="name" 
+						pattern="[A-Za-z ]{3,15}" title="Name must be the letter only">
+					</div>
+					<br>
+					
+					<div>
+						<label>Email</label> <input type="email" name="email" id="email"
+						 readonly="readonly" >
+					</div>
+					<br>
+					
+					<div>
+						 <label>Password</label> <input type="password" name="password"
+							id="password" minlength="8" title="Enter valid Password">
+					</div>
+					<br>
+					
+					<div>
+						<label>Address</label> <input type="text" name="address"
+							id="address" pattern="[A-Za-z ]{3,15}" title="Address must be the letter only" >
+					</div>
+					<br>
+
+					<div>
+					<label>Gender</label>
+						<input type="radio" name="gender" value="Male" id="male" >Male
+						&nbsp; &nbsp; <input type="radio" name="gender" value="Female"
+							id="female">Female
+					</div>
+					<br>
+					
+					<div>
+					    <label>PhoneNo</label> 
+						<input type="text" name="phoneNo" id="phoneNo" 
+						pattern="[0-9]{10}" title="PhoneNo must be digits and 10 number are valid" >
+					</div>
+					<br>
+					
+					<div>
+					    <label>DeptartmentId</label> 
+						<input type="number" name="dept_id" id="dept_id" >
+					</div>
+					<br>
+
+					<div class="form-action-buttons">
+						<input type="submit" value="Save&Submit">
+					</div>
+				</form>
+
+			</td>
+			<td>
+				<table class="list" id="studentList" border="1">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Password</th>
+							<th>Address</th>
+							<th>Gender</th>
+							<th>PhoneNo</th>
+							<th>DeptId</th>
+							<th>Edit</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</table>
+	
+	<script src="index.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+

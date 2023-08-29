@@ -1,0 +1,14 @@
+@charset "ISO-8859-1";
+
+.Hide-form-content
+{
+	display: none;
+}
+
+input:valid {
+  background-color: palegreen;
+}
+
+input:invalid {
+  background-color: lightpink;
+}
