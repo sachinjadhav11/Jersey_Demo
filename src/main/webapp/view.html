@@ -2,13 +2,26 @@
 <html>
 
 <head>
-<title>View Student Data</title>
+<title>View Employee Data</title>
 <link rel="stylesheet" href="style.css">
+<style >
+ 
+ h2{
+  text-align: center;
+ }
+ 
+</style>
+
+
 </head>
 <body>
-	<h3>Sign In Successfully</h3>
+	<h2>Sign In Successfully</h2>
 
-	<button onclick="viewStudent()">ViewStudent</button>
+	<nav class="navbar navbar-light" style="background-color: #e3f2fd; padding: 10px; text-align:inherit ; ">
+		<button onclick="viewStudent()">ViewEmployee</button>
+		<button onclick="ViewLeaves()" id="signUp">ViewLeaves</button>
+	</nav>
+
 	<table>
 		<tr>
 			<td>
@@ -54,8 +67,8 @@
 					<br>
 					
 					<div>
-					    <label>DeptartmentId</label> 
-						<input type="number" name="dept_id" id="dept_id" >
+					    <label>DeptName</label> 
+						<input type="text" name="deptName" id="deptName" >
 					</div>
 					<br>
 
@@ -63,13 +76,14 @@
 						<input type="submit" value="Save&Submit">
 					</div>
 				</form>
+				
 
 			</td>
 			<td>
 				<table class="list" id="studentList" border="1">
 					<thead>
 						<tr>
-							<th>Id</th>
+							<th>EmployeeId</th>
 							<th>Name</th>
 							<th>Email</th>
 							<th>Password</th>
@@ -77,7 +91,9 @@
 							<th>Gender</th>
 							<th>PhoneNo</th>
 							<th>DeptId</th>
+							<th>DeptName</th>
 							<th>Edit</th>
+							<th>Leave Section</th>
 						</tr>
 					</thead>
 					<tbody>

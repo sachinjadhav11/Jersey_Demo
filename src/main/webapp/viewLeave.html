@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>View Employee Leaves</title>
+<style >
+ 
+ h2{
+  text-align: center;
+ }
+ 
+ .table
+ {
+   align-content: center;
+ }
+ 
+ 
+</style>
+</head>
+<body>
+    <h2>Employee Leave Data</h2>
+<button onclick="viewEmpLeave()">ViewEmpLeave</button>
+	<div class="container">
+		<table class="table" border="1" >
+			<thead>
+				<tr>
+					<th>EmployeeId</th>
+					<th>EmpName</th>
+					<th>Email</th>
+					<th>leaveBalance</th>
+					<th>Date</th>
+					<th>Description</th>
+					<th>LeaveCount</th>
+					<th>RemainingBalance</th>
+				</tr>
+			</thead>
+			<tbody id="data">
+
+			</tbody>
+		</table>
+	</div>
+</body>
+<script src="index.js"></script>
+</html>

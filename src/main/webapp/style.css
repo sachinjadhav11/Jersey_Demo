@@ -6,7 +6,7 @@
 }
 
 input:valid {
-  background-color: palegreen;
+  background-color: rgb(192, 192, 192);
 }
 
 input:invalid {

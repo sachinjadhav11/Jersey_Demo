@@ -5,6 +5,11 @@
 var selectedRow = null
 var deleteData = null;
 var editId=null;
+/*var employeeId=null;
+var empName=null;
+var email=null;
+var url=null;*/
+//applyLeave(tableData);
 
 function onFormSubmit(e)
  {
@@ -131,9 +136,8 @@ function readFormData()
 		formData["gender"] = document.getElementById("female").value;
 	 }
 	 formData["phoneNo"] = document.getElementById("phoneNo").value;
-	 formData["dept_id"] = document.getElementById("dept_id").value;
+	 formData["deptName"] = document.getElementById("deptName").value;
 	 
-	
 	return formData;
 }
 
@@ -156,7 +160,7 @@ function insertNewRecord(data)
 	var table = document.getElementById("studentList").getElementsByTagName('tbody')[0];
 	var newRow = table.insertRow(table.length);
 	cell1 = newRow.insertCell(0);
-	cell1.innerHTML = data.id;
+	cell1.innerHTML = data.employeeId;
 	cell2 = newRow.insertCell(1);
 	cell2.innerHTML = data.name;
 	cell3 = newRow.insertCell(2);
@@ -169,14 +173,156 @@ function insertNewRecord(data)
 	cell6.innerHTML = data.gender;
 	cell7 = newRow.insertCell(6);
 	cell7.innerHTML = data.phoneNo;
-	cell7 = newRow.insertCell(7);
-	cell7.innerHTML = data.dept_id;
-	cell4 = newRow.insertCell(8);
-	cell4.innerHTML = `<a onClick="showForm(this)">Edit</a>
+	cell8 = newRow.insertCell(7);
+	cell8.innerHTML = data.deptId;
+	cell9 = newRow.insertCell(8);
+	cell9.innerHTML = data.deptName;
+	cell10 = newRow.insertCell(9);
+	cell10.innerHTML = `<a onClick="showForm(this)">Edit</a>
 	                   <a onClick="onEdit(this)">Update</a>
                        <a onClick="onDelete(this)">Delete</a>`;
+    cell11 = newRow.insertCell(10); 
+    cell11.innerHTML = `<a onClick="applyLeave(this)">ApplyLeave</a>`;                  
 
 }
+
+function applyLeave(td) 
+{
+    alert("Are you sure to Apply For Leave");
+    
+    // Get the values from the selected row
+    selectedRow = td.parentElement.parentElement;
+    employeeId = selectedRow.cells[0].innerHTML;
+    empName = selectedRow.cells[1].innerHTML;
+    email = selectedRow.cells[2].innerHTML;
+    
+    console.log(employeeId);
+    console.log(empName);
+    console.log(email);
+
+    // Construct the URL with parameters and navigate to it
+     url = "leave.html?employeeId=" + encodeURIComponent(employeeId) +
+              "&name=" + encodeURIComponent(empName) +
+              "&email=" + encodeURIComponent(email);
+    document.location.href = url;
+    
+    console.log(employeeId);
+    console.log(empName);
+    console.log(email);
+}
+
+window.onload = function ()
+ {
+    
+    if (document.location.search)
+     {
+        params = document.location.search.substring(1).split('&');
+       let decodedUrl= decodeURIComponent(document.location.search)
+       params = decodedUrl.substring(1).split('&');
+        
+        data = {};
+        for (var i = 0, l = params.length; i < l; i++) 
+        {
+            tmp = params[i].split('=');
+            data[tmp[0]] = tmp[1];
+        }
+         console.log(data.employeeId);
+     //   document.getElementById('employeeId').innerHTML = data.employeeId;
+      var empId=data.employeeId;
+      var Name=data.name; 
+      var mail=data.email;
+      
+      console.log(empId);
+      console.log(Name);
+      console.log(mail);
+      
+      document.getElementById('employeeId').value = empId;
+      document.getElementById('name').value = Name;
+      document.getElementById('email').value = mail;
+         
+    }
+}
+
+async function onLeave()
+{
+	var leaveData = {};
+	leaveData["employeeId"] = document.getElementById('employeeId').value;
+	leaveData["empName"] = document.getElementById('name').value;
+	leaveData["empMail"] = document.getElementById('email').value;
+	leaveData["date"] = document.getElementById('date').value;
+	leaveData["description"] = document.getElementById('description').value;
+	
+	const data = leaveData;
+	
+	const leave = {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    };
+    
+    try
+    {
+		const responce = await fetch (
+			`http://localhost:9191/jerseyDemo/webapi/student/leave`, leave);
+			
+			if(response.status === 200)
+			{
+				alert("apply successfully");
+			}
+			else if(response.status === 304)
+			{
+				alert("something went wrong");
+			}	
+	}
+	catch (error)
+     {
+        console.error('Error:', error);
+     }	
+}
+
+function onReset()
+{
+	document.getElementById('myForm').reset();
+}
+
+function ViewLeaves()
+ {
+	 document.location.href = "viewLeave.html";	 
+}
+
+ function viewEmpLeave()
+{
+	fetch("http://localhost:9191/jerseyDemo/webapi/student/leave").then(
+		res => {
+			res.json().then(
+				data => {
+					console.log(data);
+					if (data.length > 0) {
+
+						var temp = "";
+						data.forEach((itemData) => {
+							temp += "<tr>";
+							temp += "<td>" + itemData.employeeId + "</td>";
+							temp += "<td>" + itemData.empName + "</td>";
+							temp += "<td>" + itemData.empMail + "</td>";
+							temp += "<td>" + itemData.leaveBalance + "</td>";
+							temp += "<td>" + itemData.date + "</td>";
+							temp += "<td>" + itemData.description + "</td>";
+							temp += "<td>" + itemData.leave_count + "</td>";
+							temp += "<td>" + itemData.remainingLeave + "</td>";
+						});
+						document.getElementById('data').innerHTML = temp;
+					}
+				}
+			)
+		}
+	)
+}
+
+
 
 function showForm(td)
 {
@@ -201,7 +347,7 @@ function resetForm()
 	  document.getElementById("female").value = "";
 	}
 	document.getElementById("phoneNo").value = "";
-	document.getElementById("dept_id").value = "";
+	document.getElementById("deptName").value = "";
 	
 	selectedRow = null;
 }
@@ -223,7 +369,7 @@ function onEdit(td)
 		document.getElementById("female").checked=true;
 	}
     document.getElementById("phoneNo").value = selectedRow.cells[6].innerHTML;
-    document.getElementById("dept_id").value = selectedRow.cells[7].innerHTML;
+    document.getElementById("deptName").value = selectedRow.cells[8].innerHTML;
 	
 /*	document.getElementById("male").value = selectedRow.cells[5].innerHTML;
 	document.getElementById("female").value = selectedRow.cells[6].innerHTML;*/
@@ -234,7 +380,7 @@ async function updateRecord(formData)
  {
 
 	const studentData = formData;
-	studentData.id=editId;
+	studentData.employeeId=editId;
 	
 	const student = {
         method: 'PUT',
@@ -242,7 +388,7 @@ async function updateRecord(formData)
             Accept: 'application/json',
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(studentData),
+        body: JSON.stringify(studentData)
     };
     
     try {
@@ -262,12 +408,10 @@ async function updateRecord(formData)
             alert('Something went wrong');
           }
         }
-           catch (error)
-     {
-        console.error('Error:', error);
-      }
-    
-    
+        catch (error)
+        {
+         console.error('Error:', error);
+        } 
 }	
 
 
@@ -321,7 +465,10 @@ signIn = async ()=>
 	}
 	else if(fetchResponse.status=='304')
 	{
-		window.alert('please register first');
+		var div = document.getElementById('emailValidate');
+
+        div.innerHTML = 'Email Or Password Wrong';
+		
 	}
         console.log(fetchResponse);
     } 
@@ -332,7 +479,6 @@ signIn = async ()=>
      
  }     
      
-   
 function onSignIn()
 {
 	var formData={};
@@ -351,113 +497,6 @@ function validation()
 	}
  }
  
- /*function passwordValidate(data)
- {
-	 const pass=document.getElementById("password");
-	 if()
- }*/
- 
-  
-     
-     
-     
-     
-     	/*const pass1=document.getElementById('password').value;
-	if(pass1.length<8)
-	{
-		alert("please enter valid password");
-	}
-	else if(pass1.test(reg1))
-	{
-		alert("please enter valid password")
-	}
-	else
-	{
-	 formData["password"]=pass1	;
-	}*/
-     
-     
-     
-     
-     
-     
-     	/*document.getElementById("male").value = "";
-	document.getElementById("female").value ="";
-	*/
-     
-	
-	/*let response=await fetch("http://localhost:9191/jerseyDemo/webapi/student/Login",{
-		method: 'POST',
-		headers : {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
-		},
-		body : JSON.stringify(formData)
-		
-	})
-	
-	console.log(response);
-	*/
-	
-	
-	
-	
-/*	 email = document.getElementById("email").value ;
-	 password = document.getElementById("password").value;
-	 
-	 signinData ={
-		 email: email,
-		 password: password
-		 
-	 };
-	
-	fetch('http://localhost:9191/jerseyDemo/webapi/student/Login',
-		{
-			method: 'POST',
-			headers: {
-				'Content-type': 'application/json'
-			},
-			body: JSON.stringify(signinData)
-		})
-		.then(res => console.log(res))
-		
-		window.location.href="index3.html"*/
-
-
-
-/*  function SignIn()
-  {
-	  const apiUrl = 'http://localhost:9191/jerseyDemo/webapi/student/Login';
-	  const loginData =
-	   {
-		  username: document.getElementById('email').value,
-		  password: document.getElementById('password').value
-	  };
-
-	  // Create the request headers
-	  const headers = new Headers();
-	  headers.append('Content-Type', 'application/json');
-
-	  // Create the request options
-	  const requestOptions = {
-		  method: 'POST',
-		  headers: headers,
-		  body: JSON.stringify(loginData)
-	  };
-
-	  // Perform the API call
-	  fetch(apiUrl, requestOptions)
-		   .then(
-			   window.location.href='index3.html'
-		   )
-		  .catch(error =>
-		   {
-			  // Handle any errors that occurred during the API call
-			  console.error('Error:', error);
-		  });
-  
-  }*/
-  
 function validate()
  {
 	isValid = true;
